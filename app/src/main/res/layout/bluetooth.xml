@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+        <Switch
+            android:id="@+id/bluetoothSwitch"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:minHeight="48dp"
+            android:splitTrack="false"
+            android:textOff="OFF"
+            android:textOn="ON"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="100dp"
+            android:id="@+id/btnFindNewDevices"
+            android:text="Discover"
+            android:onClick="toggleButtonScan"/>
+
+        <ListView
+            android:id="@+id/otherDevicesListView"
+            android:layout_width="380dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:scrollbars="vertical"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+        <!--            android:background="@drawable/listview_border"-->
+
+        <ListView
+            android:id="@+id/pairedDevicesListView"
+            android:layout_width="380dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="350dp"
+            android:gravity="bottom"
+            android:scrollbars="vertical"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/connectBtn"
+            android:layout_width="150dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="CONNECT"
+            android:textColor="@color/white" />
+<!--        android:background="@drawable/buttonstate"-->
+<!--        android:onClick="toggleButtonScan"-->
+
+<!--        TO DELETE-->
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Text Here"
+            android:layout_marginTop="275dp"
+            android:layout_below="@+id/lvNewDevices"
+            android:layout_alignParentStart="true"
+            android:id="@+id/editText"/>
+
+<!--        TO DELETE-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="275dp"
+            android:text="SEND"
+            android:id="@+id/btnSend"
+            android:layout_toRightOf="@+id/editText"
+            android:layout_below="@+id/lvNewDevices"/>
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="600dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:foregroundTint="@color/black" />
+<!--        android:foreground="@drawable/outline_arrow_back_24"-->
+
+        <TextView
+            android:id="@+id/connStatusTextView"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="600dp"
+            android:layout_marginEnd="64dp"
+            android:gravity="center"
+            android:text="Disconnected"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+</RelativeLayout>

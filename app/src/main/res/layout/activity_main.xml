@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/bluetoothButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="110dp"
+        android:foregroundGravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/bluetoothStatus"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark"/>
+<!--    android:fontFamily="@font/open_sans_semibold"-->
+<!--    android:text="@string/bluetooth_connection"-->
+
+    <TextView
+        android:id="@+id/bluetoothConnectedDevice"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="Connected Device"
+        android:textAlignment="center"
+        android:textColor="@color/black"/>
+<!--    android:fontFamily="@font/open_sans_semibold"-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
