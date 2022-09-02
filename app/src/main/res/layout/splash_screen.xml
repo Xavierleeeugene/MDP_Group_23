@@ -6,15 +6,15 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/wallpaper2"
         android:scaleType="centerCrop"/>
+<!--    android:src="@mipmap/wallpaper2"-->
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/david_head"
         android:layout_marginStart="373dp"
         android:layout_marginTop="95dp"
         android:rotation="330"/>
+<!--    android:src="@mipmap/david_head"-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

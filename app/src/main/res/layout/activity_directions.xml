@@ -42,13 +42,13 @@
         android:onClick="Save"
         android:text="SAVE"
         android:textSize="24sp"
-        android:background="@drawable/border_black_state"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.619"
         app:layout_constraintStart_toEndOf="@+id/cancelDirectionBtn"
         app:layout_constraintTop_toBottomOf="@+id/directionDropdownSpinner"
         app:layout_constraintVertical_bias="0.049" />
+<!--    android:background="@drawable/border_black_state"-->
 
     <Button
         android:id="@+id/cancelDirectionBtn"
@@ -57,7 +57,6 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/border_black_state"
         android:onClick="Cancel"
         android:text="CANCEL"
         android:textSize="24dp"
@@ -65,6 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/directionTitleTextView"
         app:layout_constraintVertical_bias="0.05" />
+<!--    android:background="@drawable/border_black_state"-->
 
     <Spinner
         android:id="@+id/directionDropdownSpinner"
