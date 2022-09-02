@@ -10,8 +10,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg"
         android:scaleType="fitXY"/>
+<!--    android:src="@drawable/bg"-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,8 +29,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:src="@mipmap/www"
         android:scaleType="fitXY"/>
+<!--        android:src="@mipmap/www"-->
 
 
     <TextView
@@ -86,22 +86,22 @@
         android:id="@+id/bluetoothConnection"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@drawable/statusbar"
         android:gravity="center"
         android:text="BLUETOOTH"
         android:textStyle="bold"
         android:fontFamily="@font/open_sans_semibold"
         android:textAlignment="center"
-        android:textColor="@color/colorBlack"
-        app:drawableLeftCompat="@mipmap/left"
-        app:drawableRightCompat="@mipmap/right" />
+        android:textColor="@color/colorBlack" />
+<!--        android:background="@drawable/statusbar"-->
+<!--        app:drawableLeftCompat="@mipmap/left"
+        app:drawableRightCompat="@mipmap/right"-->
 
     <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/border_black">
+        android:orientation="vertical">
+<!--        android:background="@drawable/border_black"-->
 
         <TextView
             android:id="@+id/bluetoothStatus"
@@ -133,23 +133,23 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:background="@drawable/statusbar"
+            android:textColor="@color/colorBlack" />
+<!--        android:background="@drawable/statusbar"
             app:drawableLeftCompat="@mipmap/left"
-            app:drawableRightCompat="@mipmap/right" />
+            app:drawableRightCompat="@mipmap/right"-->
 
         <TextView
             android:id="@+id/robotStatus"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/border_black"
             android:gravity="center"
             android:text="Ready to Start"
             android:textAlignment="center"
 
             android:fontFamily="@font/open_sans_semibold"
             android:textColor="@color/colorBlack" />
+<!--        android:background="@drawable/border_black"-->
 
         <TextView
             android:id="@+id/directionLabel"
@@ -160,22 +160,22 @@
             android:gravity="center"
             android:textAlignment="center"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:background="@drawable/statusbar"
+            android:textColor="@color/colorBlack" />
+<!--        android:background="@drawable/statusbar"
             app:drawableLeftCompat="@mipmap/left"
-            app:drawableRightCompat="@mipmap/right" />
+            app:drawableRightCompat="@mipmap/right"-->
 
         <TextView
             android:id="@+id/directionAxisTextView"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
-            android:background="@drawable/border_black"
             android:textAlignment="center"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/open_sans_semibold"
             android:text="None"
             android:textColor="@color/colorBlack" />
+<!--        android:background="@drawable/border_black"-->
 
         <TextView
             android:id="@+id/CoordsLabel"
@@ -185,19 +185,19 @@
             android:text="COORDINATES"
             android:gravity="center"
             android:textAlignment="center"
-            android:drawableLeft="@mipmap/left"
-            android:drawableRight="@mipmap/right"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:background="@drawable/statusbar" />
+            android:textColor="@color/colorBlack" />
+<!--        android:drawableLeft="@mipmap/left"
+            android:drawableRight="@mipmap/right"-->
+<!--        android:background="@drawable/statusbar"-->
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:background="@drawable/border_black">
+            android:orientation="horizontal">
+<!--            android:background="@drawable/border_black"-->
 
             <TextView
                 android:id="@+id/robotX"
@@ -272,8 +272,8 @@
                         app:tabSelectedTextColor="@color/colorBlack"
                         app:tabRippleColor="@null"
                         app:tabIndicatorColor="@null"
-                        app:tabIndicatorAnimationMode="elastic"
-                        app:tabIndicator="@drawable/tab_selected"/>
+                        app:tabIndicatorAnimationMode="elastic" />
+<!--                    app:tabIndicator="@drawable/tab_selected"-->
 
                 </androidx.viewpager.widget.ViewPager>
             </LinearLayout>
@@ -299,8 +299,8 @@
                             android:id="@+id/upBtn"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:foreground="@drawable/arrow_up_faced_state"
                             android:background="@color/transparent"/>
+<!--                        android:foreground="@drawable/arrow_up_faced_state"-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -313,21 +313,21 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_marginStart="10dp"
-                            android:foreground="@drawable/arrow_left_faced_state"
                             android:background="@color/transparent"/>
+<!--                        android:foreground="@drawable/arrow_left_faced_state"-->
                         <TextView
                             android:id="@+id/RoundCircle"
                             android:layout_height="50dp"
                             android:layout_width="50dp"
-                            android:layout_marginStart="15dp"
-                            android:background="@drawable/circular_button" />
+                            android:layout_marginStart="15dp" />
+<!--                        android:background="@drawable/circular_button"-->
                         <ImageButton
                             android:id="@+id/rightBtn"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
-                            android:foreground="@drawable/arrow_right_faced_state"
                             android:background="@color/transparent" />
+<!--                        android:foreground="@drawable/arrow_right_faced_state"-->
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -339,8 +339,8 @@
                             android:id="@+id/downBtn"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:foreground="@drawable/arrow_down_faced_state"
                             android:background="@color/transparent" />
+<!--                        android:foreground="@drawable/arrow_down_faced_state"-->
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -353,8 +353,8 @@
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:paddingTop="15dp"
-                        android:paddingBottom="40dp"
-                        android:src="@mipmap/toothless_cute_kids" />
+                        android:paddingBottom="40dp" />
+<!--                    android:src="@mipmap/toothless_cute_kids"-->
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
