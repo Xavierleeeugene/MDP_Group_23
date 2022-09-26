@@ -112,10 +112,11 @@ public class ControlFragment extends Fragment {
                         updateStatus("moving forward");
                     else
                         updateStatus("Unable to move forward");
-                    MainActivity.printMessage("STM|Forward");
+//                    MainActivity.printMessage("STM|Forward");
+                    MainActivity.printMessage("f");
                 }
                 else
-                    updateStatus("Please press 'STARTING POINT'");
+                    updateStatus("Please press 'SET START POINT'");
                 showLog("Exiting moveForwardImageBtn");
             }
         });
@@ -127,11 +128,12 @@ public class ControlFragment extends Fragment {
                 if (gridMap.getCanDrawRobot()) {
                     gridMap.moveRobot("right");
                     MainActivity.refreshLabel();
-                    MainActivity.printMessage("STM|Right");
+//                    MainActivity.printMessage("STM|Right");
+                    MainActivity.printMessage("r");
                     System.out.println(Arrays.toString(gridMap.getCurCoord()));
                 }
                 else
-                    updateStatus("Please press 'STARTING POINT'");
+                    updateStatus("Please press 'SET START POINT'");
                 showLog("Exiting turnRightImageBtn");
             }
         });
@@ -147,10 +149,11 @@ public class ControlFragment extends Fragment {
                         updateStatus("moving backward");
                     else
                         updateStatus("Unable to move backward");
-                    MainActivity.printMessage("STM|Back");
+//                    MainActivity.printMessage("STM|Back");
+                    MainActivity.printMessage("b");
                 }
                 else
-                    updateStatus("Please press 'STARTING POINT'");
+                    updateStatus("Please press 'SET START POINT'");
                 showLog("Exiting moveBackwardImageBtn");
             }
         });
@@ -163,10 +166,11 @@ public class ControlFragment extends Fragment {
                     gridMap.moveRobot("left");
                     MainActivity.refreshLabel();
                     updateStatus("turning left");
-                    MainActivity.printMessage("STM|Left");
+//                    MainActivity.printMessage("STM|Left");
+                    MainActivity.printMessage("l");
                 }
                 else
-                    updateStatus("Please press 'STARTING POINT'");
+                    updateStatus("Please press 'SET START POINT'");
                 showLog("Exiting turnLeftImageBtn");
             }
         });
@@ -211,7 +215,8 @@ public class ControlFragment extends Fragment {
                 else if (fastestToggleBtn.getText().equals("STOP")) {
                     showToast("Fastest car timer start!");
                     try {
-                        MainActivity.printMessage("STM|Start");
+//                        MainActivity.printMessage("STM|Start");
+                        MainActivity.printMessage("{\"forward_to\":\"STM\",\"message\":\"Start\"}");
                     } catch (Exception e) {
                         showLog(e.getMessage());
                     }
@@ -243,7 +248,7 @@ public class ControlFragment extends Fragment {
         fastestResetButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                showLog("Clicjed fatestResetImgBtn");
+                showLog("Clicked fastestResetImgBtn");
                 showToast("Resetting Fastest Time...");
                 fastestTimeTextView.setText("00:00");
                 robotStatusTextView.setText("Fastest Car Finished");

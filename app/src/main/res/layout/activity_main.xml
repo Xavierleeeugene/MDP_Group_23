@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorWhite">
 
     <ImageView
         android:layout_width="match_parent"
@@ -18,48 +19,50 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#0000ffff"
-        android:orientation="horizontal">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:background="#0000ffff"
+            android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:scaleType="fitXY"/>
-<!--        android:src="@mipmap/www"-->
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY" />
+            <!--        android:src="@mipmap/www"-->
 
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans_semibold"
-        android:gravity="center"
-        android:minHeight="?actionBarSize"
-        android:background="@color/transparent"
-        android:padding="@dimen/appbar_padding"
-        android:text="@string/app_name"
-        android:textColor="@color/colorBlack"
-        android:textSize="23sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:fontFamily="@font/open_sans_semibold"
+                android:gravity="center"
+                android:minHeight="?actionBarSize"
+                android:padding="@dimen/appbar_padding"
+                android:text="@string/app_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/bluetoothButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="110dp"
-            android:foregroundGravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:scaleType="fitXY" />
+            <ImageButton
+                android:id="@+id/bluetoothButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="190dp"
+                android:foregroundGravity="center"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:foreground="@drawable/bluetooth_icon"
+                android:background="@color/white"/>
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+        <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="435dp"
@@ -91,8 +94,8 @@
         android:textStyle="bold"
         android:fontFamily="@font/open_sans_semibold"
         android:textAlignment="center"
-        android:textColor="@color/colorBlack" />
-<!--        android:background="@drawable/statusbar"-->
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/status_bar"/>
 <!--        app:drawableLeftCompat="@mipmap/left"
         app:drawableRightCompat="@mipmap/right"-->
 
@@ -100,8 +103,8 @@
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-<!--        android:background="@drawable/border_black"-->
+        android:orientation="vertical"
+        android:background="@drawable/container_black">
 
         <TextView
             android:id="@+id/bluetoothStatus"
@@ -133,8 +136,9 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack" />
-<!--        android:background="@drawable/statusbar"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/status_bar"/>
+<!--
             app:drawableLeftCompat="@mipmap/left"
             app:drawableRightCompat="@mipmap/right"-->
 
@@ -146,10 +150,9 @@
             android:gravity="center"
             android:text="Ready to Start"
             android:textAlignment="center"
-
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack" />
-<!--        android:background="@drawable/border_black"-->
+            android:textColor="@color/colorBlack"
+            android:background="@drawable/container_black"/>
 
         <TextView
             android:id="@+id/directionLabel"
@@ -160,8 +163,9 @@
             android:gravity="center"
             android:textAlignment="center"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack" />
-<!--        android:background="@drawable/statusbar"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/status_bar"/>
+<!--
             app:drawableLeftCompat="@mipmap/left"
             app:drawableRightCompat="@mipmap/right"-->
 
@@ -174,30 +178,30 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/open_sans_semibold"
             android:text="None"
-            android:textColor="@color/colorBlack" />
-<!--        android:background="@drawable/border_black"-->
+            android:textColor="@color/colorBlack"
+            android:background="@drawable/container_black"/>
 
         <TextView
             android:id="@+id/CoordsLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
-            android:text="COORDINATES"
-            android:gravity="center"
-            android:textAlignment="center"
+            android:background="@drawable/status_bar"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack" />
+            android:gravity="center"
+            android:text="COORDINATES"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite" />
 <!--        android:drawableLeft="@mipmap/left"
             android:drawableRight="@mipmap/right"-->
-<!--        android:background="@drawable/statusbar"-->
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-<!--            android:background="@drawable/border_black"-->
+            android:orientation="horizontal"
+            android:background="@drawable/container_black">
 
             <TextView
                 android:id="@+id/robotX"
@@ -272,8 +276,8 @@
                         app:tabSelectedTextColor="@color/colorBlack"
                         app:tabRippleColor="@null"
                         app:tabIndicatorColor="@null"
-                        app:tabIndicatorAnimationMode="elastic" />
-<!--                    app:tabIndicator="@drawable/tab_selected"-->
+                        app:tabIndicatorAnimationMode="elastic"
+                        app:tabIndicator="@drawable/selected_tab"/>
 
                 </androidx.viewpager.widget.ViewPager>
             </LinearLayout>
@@ -299,8 +303,8 @@
                             android:id="@+id/upBtn"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:background="@color/transparent"/>
-<!--                        android:foreground="@drawable/arrow_up_faced_state"-->
+                            android:background="@color/transparent"
+                            android:foreground="@drawable/up_direction"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -313,8 +317,8 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_marginStart="10dp"
+                            android:foreground="@drawable/left_direction"
                             android:background="@color/transparent"/>
-<!--                        android:foreground="@drawable/arrow_left_faced_state"-->
                         <TextView
                             android:id="@+id/RoundCircle"
                             android:layout_height="50dp"
@@ -326,8 +330,8 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
-                            android:background="@color/transparent" />
-<!--                        android:foreground="@drawable/arrow_right_faced_state"-->
+                            android:background="@color/transparent"
+                            android:foreground="@drawable/right_direction"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -339,8 +343,8 @@
                             android:id="@+id/downBtn"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:background="@color/transparent" />
-<!--                        android:foreground="@drawable/arrow_down_faced_state"-->
+                            android:background="@color/transparent"
+                            android:foreground="@drawable/down_direction"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout

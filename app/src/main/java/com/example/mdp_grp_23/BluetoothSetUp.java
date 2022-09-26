@@ -54,10 +54,6 @@ public class BluetoothSetUp extends AppCompatActivity {
     Button connectBtn;
     ProgressDialog myDialog;
 
-    //TO DELETE!!!!
-    Button btnSend;
-    EditText etSend;
-    //TO DELETE !!!!
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -99,10 +95,6 @@ public class BluetoothSetUp extends AppCompatActivity {
         mPairedBTDevices = new ArrayList<>();
 
         connectBtn = findViewById(R.id.connectBtn);
-        //!TO DELETE!//
-        btnSend = (Button) findViewById(R.id.btnSend);
-        etSend = (EditText) findViewById(R.id.editText);
-        //!TO DELETE!//
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
