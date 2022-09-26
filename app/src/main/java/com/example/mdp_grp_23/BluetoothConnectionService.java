@@ -23,7 +23,7 @@ import java.util.UUID;
 public class BluetoothConnectionService {
     private static final String TAG = "Debugging Tag";
     private static final String appName = "MDP_Grp_23";
-    public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     private final BluetoothAdapter mBluetoothAdapter;
     Context mContext;
@@ -40,8 +40,8 @@ public class BluetoothConnectionService {
     private static ConnectedThread mConnectedThread;
 
     public BluetoothConnectionService(Context context) {
-        this.mContext = context;
         this.mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.mContext = context;
         startAcceptThread();
     }
 
@@ -128,7 +128,7 @@ public class BluetoothConnectionService {
                     mBluetoothPopUpActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(mContext, "Failed to connect to the Device.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Failed to connect to the Device.", Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (Exception z) {

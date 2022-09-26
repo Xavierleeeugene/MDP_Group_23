@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialization
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -249,22 +254,28 @@ public class MainActivity extends AppCompatActivity {
             g_coordX = global_store[0];
             g_coordY = global_store[1];
             ArrayList<String> mapCoord = new ArrayList<>();
-            if(message.contains("|")) {
+
+            //PLACE HOLDER
+            if (message.contains("STATUS")) {
+                robotStatusTextView.setText(message.split(":")[1]);
+            }
+
+            if(message.contains("ROBOT")) {
                 String [] cmd = message.split("\\|");
                 for(int i =1; i<cmd.length; i++){
                     String[] sentCoords = cmd[i].split(",");
                     String direction = "";
                     switch(sentCoords[2]){
-                        case "0":
+                        case "E":
                             direction = "E";
                             break;
-                        case "90":
+                        case "N":
                             direction = "N";
                             break;
-                        case "180":
+                        case "W":
                             direction= "W";
                             break;
-                        case "270":
+                        case "S":
                             direction = "S";
                             break;
                         default:
@@ -528,7 +539,7 @@ public class MainActivity extends AppCompatActivity {
                     time+=200;
                     String[] singleCoord = mapCoord.get(i).split(",");
                     int coordx = Integer.parseInt(singleCoord[0]);
-                    int coordy = Integer.parseInt(singleCoord[1]);
+                    int coordy = 20 - Integer.parseInt(singleCoord[1]);
                     String dir = singleCoord[2];
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -540,8 +551,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
             //image format from RPI is "IMG-Obstacle ID-ImageID" eg IMG-3-7
-            else if(message.contains("IMG")) {
-                String[] cmd = message.split("-");
+            else if(message.contains("TARGET")) {
+                String[] cmd = message.split(",");
                 gridMap.updateIDFromRpi(cmd[1], cmd[2]);
                 obstacleID = cmd[1];
             }

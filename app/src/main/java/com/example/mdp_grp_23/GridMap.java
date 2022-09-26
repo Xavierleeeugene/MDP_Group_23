@@ -32,6 +32,9 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class GridMap extends View{
     public GridMap(Context c) {
@@ -44,7 +47,7 @@ public class GridMap extends View{
 
     private final Paint blackPaint = new Paint();
     private final Paint whitePaint = new Paint();
-    private final Paint greenPaint = new Paint();
+    private final Paint maroonPaint = new Paint();
     private final Paint obstacleColor = new Paint();
     private final Paint robotColor = new Paint();
     private final Paint endColor = new Paint();
@@ -71,6 +74,7 @@ public class GridMap extends View{
     private static final int ROW = 20;
     private static float cellSize;
     private static Cell[][] cells;
+    Map<String, String> val2IdxMap;
 
     private boolean mapDrawn = false;
 
@@ -98,15 +102,15 @@ public class GridMap extends View{
         whitePaint.setColor(Color.WHITE);
         whitePaint.setTextSize(25);
         whitePaint.setTextAlign(Paint.Align.CENTER);
-        greenPaint.setColor(getResources().getColor(R.color.grassColor));
-        greenPaint.setStrokeWidth(8);
+        maroonPaint.setColor(getResources().getColor(R.color.brightRed));
+        maroonPaint.setStrokeWidth(8);
         obstacleColor.setColor(getResources().getColor(R.color.rockColor));
         robotColor.setColor(getResources().getColor(R.color.light_blue));
         robotColor.setStrokeWidth(2);
         endColor.setColor(Color.RED);
         startColor.setColor(Color.CYAN);
         waypointColor.setColor(Color.GREEN);
-        unexploredColor.setColor(getResources().getColor(R.color.lightBlue));
+        unexploredColor.setColor(getResources().getColor(R.color.superMarioBlue));
         exploredColor.setColor(getResources().getColor(R.color.exploredColor2));
         arrowColor.setColor(Color.BLACK);
         fastestPathColor.setColor(Color.MAGENTA);
@@ -116,6 +120,8 @@ public class GridMap extends View{
         // get shared preferences
         sharedPreferences = getContext().getSharedPreferences("Shared Preferences",
                 Context.MODE_PRIVATE);
+
+        this.val2IdxMap = new HashMap<>();
     }
 
     private void initMap() {
@@ -155,12 +161,38 @@ public class GridMap extends View{
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {
                 // draw image id
-                canvas.drawText(
-                        ITEM_LIST.get(19-i)[j],
-                        cells[j+1][19-i].startX + ((cells[1][1].endX - cells[1][1].startX) / 2),
-                        cells[j+1][i].startY + ((cells[1][1].endY - cells[1][1].startY) / 2) + 10,
-                        whitePaint
-                );
+//                canvas.drawText(
+//                        ITEM_LIST.get(19-i)[j],
+//                        cells[j+1][19-i].startX + ((cells[1][1].endX - cells[1][1].startX) / 2),
+//                        cells[j+1][i].startY + ((cells[1][1].endY - cells[1][1].startY) / 2) + 10,
+//                        whitePaint
+//                );
+                // draw obstacle id + image id
+                for(int q = 0; q < obstacleCoord.size(); q++) {
+                    if (obstacleCoord.get(q)[0] == j && obstacleCoord.get(q)[1] == i) {
+                        if (ITEM_LIST.get(obstacleCoord.get(q)[1])[obstacleCoord.get(q)[0]] == null || ITEM_LIST.get(obstacleCoord.get(q)[1])[obstacleCoord.get(q)[0]] == ""
+                                || ITEM_LIST.get(obstacleCoord.get(q)[1])[obstacleCoord.get(q)[0]] == "Nil") {
+                            Log.d(TAG, "drawObstacles: drawing obstacle ID");
+                            canvas.drawText(
+                                    String.valueOf(q + 1),
+                                    cells[j + 1][19 - i].startX + ((cells[1][1].endX - cells[1][1].startX) / 2),
+                                    cells[j + 1][19 - i].startY + ((cells[1][1].endY - cells[1][1].startY) / 2) + 10,
+                                    whitePaint
+                            );
+
+                        } else {
+                            Log.d(TAG, "drawObstacles: drawing image ID");
+                            canvas.drawText(
+                                    ITEM_LIST.get(obstacleCoord.get(q)[1])[obstacleCoord.get(q)[0]],
+                                    cells[j + 1][19 - i].startX + ((cells[1][1].endX - cells[1][1].startX) / 2),
+                                    cells[j + 1][19 - i].startY + ((cells[1][1].endY - cells[1][1].startY) / 2) + 10,
+                                    whitePaint
+                            );
+                        }
+
+                    }
+                    ;
+                }
 
                 // color the face direction
                 switch (imageBearings.get(19-i)[j]) {
@@ -170,7 +202,7 @@ public class GridMap extends View{
                                 cells[j + 1][i].startY,
                                 cells[j + 1][20 - i].endX,
                                 cells[j + 1][i].startY,
-                                greenPaint
+                                maroonPaint
                         );
                         break;
                     case "South":
@@ -179,7 +211,7 @@ public class GridMap extends View{
                                 cells[j + 1][i].startY + cellSize,
                                 cells[j + 1][20 - i].endX,
                                 cells[j + 1][i].startY + cellSize,
-                                greenPaint
+                                maroonPaint
                         );
                         break;
                     case "East":
@@ -188,7 +220,7 @@ public class GridMap extends View{
                                 cells[j + 1][i].startY,
                                 cells[j + 1][20 - i].startX + cellSize,
                                 cells[j + 1][i].endY,
-                                greenPaint
+                                maroonPaint
                         );
                         break;
                     case "West":
@@ -197,7 +229,7 @@ public class GridMap extends View{
                                 cells[j + 1][i].startY,
                                 cells[j + 1][20 - i].startX,
                                 cells[j + 1][i].endY,
-                                greenPaint
+                                maroonPaint
                         );
                         break;
                 }
@@ -349,7 +381,7 @@ public class GridMap extends View{
                 case "up":
                     //This makes the coordinates adjustable instead of static
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.mipmap.boat_top, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_up_resting, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
@@ -357,7 +389,7 @@ public class GridMap extends View{
                     break;
                 case "down":
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.mipmap.boat_down, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_down_resting, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
@@ -365,7 +397,7 @@ public class GridMap extends View{
                     break;
                 case "right":
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.mipmap.boat_right, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_right_resting, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
@@ -374,7 +406,7 @@ public class GridMap extends View{
                     break;
                 case "left":
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.mipmap.boat_left, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_left_resting, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
@@ -545,13 +577,36 @@ public class GridMap extends View{
         directionAxisTextView.setText(direction);
     }
 
-    public void setObstacleCoord(int col, int row) {
+    public void setObstacleCoord(int col, int row, String imageId, String imageBearing) {
         Logd("Entering setObstacleCoord");
         int[] obstacleCoord = new int[]{col - 1, row - 1};
         GridMap.obstacleCoord.add(obstacleCoord);
         row = this.convertRow(row);
         cells[col][row].setType("obstacle");
         Logd("Exiting setObstacleCoord");
+
+        int obstacleNumber = GridMap.obstacleCoord.size();
+
+        if(imageId == "1")
+            obstacleNumber -= 1;
+
+
+        View mView1 = ((Activity) this.getContext()).getLayoutInflater()
+                .inflate(R.layout.activity_dialog,
+                        null);
+
+//        final Spinner mIDSpinner12 = mView1.findViewById(R.id.imageIDSpinner2);
+//
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+//                this.getContext(), R.array.imageID_array,
+//                android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        mIDSpinner12.setAdapter(adapter);
+
+        String newID = val2IdxMap.get(imageId);
+
+        // PLACE HOLDER//
+        MainActivity.printMessage("COORD of Obstacle ID " + obstacleNumber + ":" + (col - 1) + "," + (19 - row) + ", Bearing: " + imageBearing);
     }
 
     private ArrayList<int[]> getObstacleCoord() {
@@ -633,9 +688,10 @@ public class GridMap extends View{
         clipData = dragEvent.getClipData();
         localState = dragEvent.getLocalState();
 
-        String tempID, tempBearing;
+        String tempID, tempBearing, testID;
         endColumn = endRow = -999;
         oldItem = ITEM_LIST.get(initialRow - 1)[initialColumn - 1];
+        testID = oldItem;
         Logd("dragEvent.getAction() == " + dragEvent.getAction());
         Logd("dragEvent.getResult() is " + dragEvent.getResult());
         Logd("initialColumn = " + initialColumn + ", initialRow = " + initialRow);
@@ -691,7 +747,8 @@ public class GridMap extends View{
                     ITEM_LIST.get(endRow - 1)[endColumn - 1] = tempID;
                     imageBearings.get(endRow - 1)[endColumn - 1] = tempBearing;
 
-                    setObstacleCoord(endColumn, endRow);
+                    setObstacleCoord(endColumn, endRow, "1", tempBearing);
+
                     for (int i = 0; i < obstacleCoord.size(); i++) {
                         if (Arrays.equals(obstacleCoord.get(i), new int[]{initialColumn - 1, initialRow - 1}))
                             obstacleCoord.remove(i);
@@ -728,6 +785,9 @@ public class GridMap extends View{
                     .findViewById(R.id.startpointToggleBtn);
             Logd("event.getX = " + event.getX() + ", event.getY = " + event.getY());
             Logd("row = " + row + ", column = " + column);
+
+            oldItem = ITEM_LIST.get(initialRow - 1)[initialColumn - 1];
+            String testID = oldItem;
 
             // start drag
             if (MappingFragment.dragStatus) {
@@ -792,6 +852,8 @@ public class GridMap extends View{
                         case "West": mBearingSpinner.setSelection(3);
                     }
 
+
+
                     // do what when user presses ok
                     mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -805,6 +867,12 @@ public class GridMap extends View{
                             Logd("tCol - 1 = " + (tCol - 1));
                             Logd("newID = " + newID);
                             Logd("newBearing = " + newBearing);
+                            MainActivity.printMessage("COORD of Image ID " + newID + ":" + (tCol - 1) + "," + (tRow - 1) + ", Bearing: " + newBearing);
+                            String oldObstacleId = UUID.randomUUID().toString(); // TODO generate random string id
+                            if (val2IdxMap.containsKey(testID)) {
+                                oldObstacleId = val2IdxMap.get(testID);
+                            }
+                            val2IdxMap.put(newID, oldObstacleId);
 
                             callInvalidate();
                         }
@@ -901,7 +969,7 @@ public class GridMap extends View{
                     imageBearings.get(row - 1)[column - 1] = imageBearing;
 
                     // this function affects obstacle turning too
-                    this.setObstacleCoord(column, row);
+                    this.setObstacleCoord(column, row, testID, imageBearing);
                 }
                 this.invalidate();
                 return true;

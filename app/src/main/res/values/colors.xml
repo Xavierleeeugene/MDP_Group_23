@@ -10,8 +10,6 @@
 
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#1E88E5</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="border_color">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorBlack">#FF000000</color>
@@ -31,6 +29,17 @@
     <color name="exploredColor2">#cbdaf0</color>
     <color name="rockColor">#333333</color>
     <color name="grassColor">#597d35</color>
+    <color name="grey">#ABABAB</color>
+    <color name="navyBlue">#171738</color>
+    <color name="midnightBlue">#2E1760</color>
+    <color name="lightGreen">#DFF3E4</color>
+    <color name="lightPurple">#7180B9</color>
+    <color name="hotPink">#FAA6FF</color>
+    <color name="lighterHotPink">#FAA6FF</color>
+    <color name="xiketic">#0F1020</color>
+    <color name="royalPurple">#7353BA</color>
+    <color name="brightRed">#e62310</color>
+    <color name="superMarioBlue">#009bd9</color>
 
 
 </resources>
