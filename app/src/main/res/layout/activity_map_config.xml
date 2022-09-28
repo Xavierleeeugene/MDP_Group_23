@@ -30,9 +30,10 @@
                     android:layout_marginTop="5dp"
                     android:paddingStart="5dp"
                     android:textOff="SET START POINT"
-                    android:textOn="CANCEL" />
-<!--                android:drawableStart="@mipmap/dragon"
-                    android:background="@drawable/border_black_state"-->
+                    android:textOn="CANCEL"
+                    android:background="@drawable/border_black_state"
+                    android:drawableStart="@mipmap/dragon"/>
+
 
                 <LinearLayout
                     android:layout_width="140dp"
@@ -45,9 +46,10 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="15dp"
-                        android:scaleType="centerCrop"/>
-<!--                    android:background="@drawable/border_black_state"
-                        app:srcCompat="@mipmap/compass"-->
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/border_black_state"
+                        app:srcCompat="@mipmap/compass"/>
+
 
                     <ImageButton
                         android:id="@+id/addObstacleBtn"
@@ -56,9 +58,11 @@
                         android:layout_marginStart="36dp"
                         android:layout_marginTop="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:scaleType="centerCrop"/>
-<!--                    android:background="@drawable/border_black_state"
-                        app:srcCompat="@mipmap/red_traffic_cone"-->
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/border_black_state"
+                        app:srcCompat="@mipmap/red_traffic_cone"/>
+
+
                 </LinearLayout>
 
                 <Button
@@ -68,9 +72,10 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:paddingStart="5dp"
-                    android:text="Reset Map" />
+                    android:text="Reset Map"
+                    android:background="@drawable/border_black_state"/>
 <!--                android:drawableStart="@mipmap/fat_dragon"-->
-<!--                android:background="@drawable/border_black_state"-->
+
                 <Button
                     android:id="@+id/saveBtn"
                     android:layout_width="140dp"
@@ -78,9 +83,10 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:paddingEnd="7dp"
-                    android:text="Save Map" />
-<!--                android:background="@drawable/border_black_state"-->
-<!--                android:drawableStart="@mipmap/stormfly"-->
+                    android:text="Save Map"
+                    android:background="@drawable/border_black_state"
+                    android:drawableStart="@mipmap/stormfly"/>
+
 
                 <Button
                     android:id="@+id/loadBtn"
@@ -89,8 +95,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:paddingStart="5dp"
-                    android:text="Load Map" />
-<!--                android:background="@drawable/border_black_state"-->
+                    android:text="Load Map"
+                    android:background="@drawable/border_black_state"/>
+
 <!--                android:drawableLeft="@mipmap/two_head_dragon"-->
             </LinearLayout>
         </LinearLayout>
@@ -105,8 +112,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical">
-<!--                android:background="@drawable/border_black"-->
+                android:orientation="vertical"
+                android:background="@drawable/border_black">
+
 
                 <LinearLayout
                     android:layout_width="180dp"
@@ -156,9 +164,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:paddingEnd="10dp"
-                android:text="Preload Defaults" />
-<!--            android:background="@drawable/border_black_state"
-                android:drawableStart="@mipmap/l7"-->
+                android:text="Preload Defaults"
+                android:background="@drawable/border_black_state"/>
+            <!--
+                         android:drawableStart="@mipmap/l7"-->
+
+            <ImageView
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/luigikart"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

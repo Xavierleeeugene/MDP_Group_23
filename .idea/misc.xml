@@ -5,12 +5,18 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.13541666666666666" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable-xxxhdpi/border_black.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable-xxxhdpi/border_black_pressed.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable-xxxhdpi/border_black_state.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/chat_box.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/container_black.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable/custom_button2.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/down_direction.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/left_direction.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/right_direction.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/selected_tab.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/status_bar 2.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/status_bar.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/up_direction.xml" value="0.12" />
@@ -18,9 +24,9 @@
         <entry key="app/src/main/res/font/open_sans_semibold.xml" value="0.1390625" />
         <entry key="app/src/main/res/layout/activity_communications.xml" value="0.10885416666666667" />
         <entry key="app/src/main/res/layout/activity_dialog.xml" value="0.10885416666666667" />
-        <entry key="app/src/main/res/layout/activity_directions.xml" value="0.653125" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.13519744873046877" />
-        <entry key="app/src/main/res/layout/activity_map_config.xml" value="0.10885416666666667" />
+        <entry key="app/src/main/res/layout/activity_directions.xml" value="0.5407925407925408" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_map_config.xml" value="0.335" />
         <entry key="app/src/main/res/layout/bluetooth.xml" value="0.19892883300781256" />
         <entry key="app/src/main/res/layout/container_black.xml" value="0.1" />
         <entry key="app/src/main/res/layout/controls.xml" value="0.10885416666666667" />

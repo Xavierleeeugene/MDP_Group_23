@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         return context.getSharedPreferences("Shared Preferences", Context.MODE_PRIVATE);
     }
 
-//    // Send Coordinates to ALG
+//    // Send Coordinates to alg
     public static void printCoords(String message){
         showLog("Displaying Coords untranslated and translated");
         String[] strArr = message.split("-",2);
@@ -256,10 +256,11 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<String> mapCoord = new ArrayList<>();
 
             //PLACE HOLDER
+            //STATUS:<input>
             if (message.contains("STATUS")) {
                 robotStatusTextView.setText(message.split(":")[1]);
             }
-
+            //ROBOT|5,4,E
             if(message.contains("ROBOT")) {
                 String [] cmd = message.split("\\|");
                 for(int i =1; i<cmd.length; i++){
@@ -550,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-            //image format from RPI is "IMG-Obstacle ID-ImageID" eg IMG-3-7
+            //image format from RPI is "TARGET,<obID>,<ImValue>" eg TARGET,3,7
             else if(message.contains("TARGET")) {
                 String[] cmd = message.split(",");
                 gridMap.updateIDFromRpi(cmd[1], cmd[2]);

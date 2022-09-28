@@ -94,7 +94,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/open_sans_semibold"
         android:textAlignment="center"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/black"
         android:background="@drawable/status_bar"/>
 <!--        app:drawableLeftCompat="@mipmap/left"
         app:drawableRightCompat="@mipmap/right"-->
@@ -136,7 +136,7 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/black"
             android:background="@drawable/status_bar"/>
 <!--
             app:drawableLeftCompat="@mipmap/left"
@@ -163,7 +163,7 @@
             android:gravity="center"
             android:textAlignment="center"
             android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/black"
             android:background="@drawable/status_bar"/>
 <!--
             app:drawableLeftCompat="@mipmap/left"
@@ -183,7 +183,7 @@
 
         <TextView
             android:id="@+id/CoordsLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/status_bar"
@@ -191,7 +191,7 @@
             android:gravity="center"
             android:text="COORDINATES"
             android:textAlignment="center"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/black" />
 <!--        android:drawableLeft="@mipmap/left"
             android:drawableRight="@mipmap/right"-->
 
@@ -270,14 +270,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:tabGravity="center"
-                        app:tabMode="scrollable"
-                        app:tabMinWidth="130dp"
-                        app:tabIndicatorGravity="stretch"
-                        app:tabSelectedTextColor="@color/colorBlack"
-                        app:tabRippleColor="@null"
-                        app:tabIndicatorColor="@null"
+                        app:tabIndicator="@drawable/selected_tab"
                         app:tabIndicatorAnimationMode="elastic"
-                        app:tabIndicator="@drawable/selected_tab"/>
+                        app:tabIndicatorColor="@null"
+                        app:tabIndicatorGravity="stretch"
+                        app:tabMinWidth="130dp"
+                        app:tabMode="scrollable"
+                        app:tabRippleColor="@null"
+                        app:tabSelectedTextColor="@color/colorBlack" />
 
                 </androidx.viewpager.widget.ViewPager>
             </LinearLayout>
@@ -304,7 +304,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/up_direction"/>
+                            android:foreground="@drawable/arrow_direction_up_resting"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -357,8 +357,9 @@
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:paddingTop="15dp"
-                        android:paddingBottom="40dp" />
-<!--                    android:src="@mipmap/toothless_cute_kids"-->
+                        android:paddingBottom="40dp"
+                        android:src="@mipmap/kart"/>
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
