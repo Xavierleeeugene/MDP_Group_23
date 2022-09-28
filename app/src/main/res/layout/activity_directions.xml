@@ -47,8 +47,9 @@
         app:layout_constraintHorizontal_bias="0.619"
         app:layout_constraintStart_toEndOf="@+id/cancelDirectionBtn"
         app:layout_constraintTop_toBottomOf="@+id/directionDropdownSpinner"
-        app:layout_constraintVertical_bias="0.049" />
-<!--    android:background="@drawable/border_black_state"-->
+        app:layout_constraintVertical_bias="0.049"
+        android:background="@drawable/border_black_state"/>
+
 
     <Button
         android:id="@+id/cancelDirectionBtn"
@@ -63,8 +64,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/directionTitleTextView"
-        app:layout_constraintVertical_bias="0.05" />
-<!--    android:background="@drawable/border_black_state"-->
+        app:layout_constraintVertical_bias="0.05"
+        android:background="@drawable/border_black_state"
+        />
 
     <Spinner
         android:id="@+id/directionDropdownSpinner"

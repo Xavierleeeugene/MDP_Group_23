@@ -12,6 +12,8 @@
     <color name="colorPrimaryDark">#1E88E5</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#FF0000</color>
+    <color name="darkRed">#F88379</color>
+    <color name="lightRed">#FFCCCB</color>
     <color name="colorBlack">#FF000000</color>
     <color name="light_blue">#99E8F8</color>
     <color name="exploredColor">#FFF9FBE7</color>
