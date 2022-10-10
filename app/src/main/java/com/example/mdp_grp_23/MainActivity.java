@@ -27,6 +27,8 @@ import android.widget.Toast;
 import android.graphics.Canvas;
 import android.widget.ToggleButton;
 
+
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.nio.charset.Charset;
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageButton getRightBtn() { return rightBtn; }
     public static TextView getBluetoothStatus() { return bluetoothStatus; }
     public static TextView getConnectedDevice() { return bluetoothDevice; }
+
 
     public static void sharedPreferences() {
         sharedPreferences = MainActivity.getSharedPreferences(MainActivity.context);

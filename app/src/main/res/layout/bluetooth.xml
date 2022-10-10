@@ -78,13 +78,13 @@
 
         <Button
             android:id="@+id/backBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="69dp"
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="10dp"
             android:background="?android:attr/selectableItemBackground"
-            android:foreground="@drawable/arrow_sign"/>
+            android:foreground="@drawable/arrow_sign" />
 
         <TextView
             android:id="@+id/connStatusTextView"
