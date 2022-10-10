@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Canvas;
 import android.widget.ToggleButton;
 
 import com.google.android.material.tabs.TabLayout;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevice mBTDevice;
     private static UUID myUUID;
     ProgressDialog myDialog;
-
+    Bitmap bm, mapscalable;
     String obstacleID;
 
     private static final String TAG = "Main Activity";
@@ -261,321 +263,334 @@ public class MainActivity extends AppCompatActivity {
                 robotStatusTextView.setText(message.split(":")[1]);
             }
             //ROBOT|5,4,E
-            if(message.contains("ROBOT")) {
-                String [] cmd = message.split("\\|");
-                for(int i =1; i<cmd.length; i++){
-                    String[] sentCoords = cmd[i].split(",");
-                    String direction = "";
-                    switch(sentCoords[2]){
-                        case "E":
-                            direction = "E";
-                            break;
-                        case "N":
-                            direction = "N";
-                            break;
-                        case "W":
-                            direction= "W";
-                            break;
-                        case "S":
-                            direction = "S";
-                            break;
-                        default:
-                            direction = "";
-                    }
-                    int current_x = 0;
-                    int current_y = 0;
-                    //This code runs in a situation in which either one x or y  is the same
-                    //or both are the same coordinates they'll still move
-                    if (direction.equals("N") || direction.equals("E")){
-                        current_x = Integer.parseInt(sentCoords[0])+1;
-                        current_y = 19 - Integer.parseInt(sentCoords[1]);
-                    }
-                    // When Direction is Heading South, Current X is different, it does need the X+1 attribute
-                    else if (direction.equals("S") || direction.equals("W")){
-                        current_x = Integer.parseInt(sentCoords[0]);
-                        current_y = 19 - Integer.parseInt(sentCoords[1]);
-                    }
-
-                    if(current_x + 1 == g_coordX){
-                        if(!checkIfYWithinGrid(current_y+1)) {
-                            String store = (current_x+1)+","+current_y+","+direction;
-                            updateCoord(current_x+1, current_y);
-                            mapCoord.add(store);
-                        }
-                        else{
-                            String store = (current_x+1)+","+(current_y+1)+","+direction;
-                            updateCoord(current_x+1, current_y+1);
-                            mapCoord.add(store);
-                        }
-                    }
-                    else if (current_y+1 == g_coordY){
-                        if(!checkIfXWithinGrid(current_x+1)){
-                            String store = current_x+","+(current_y+1)+","+direction;
-                            updateCoord(current_x, current_y+1);
-                            mapCoord.add(store);
-                        }
-                        else{
-                            String store = (current_x+1) +","+(current_y+1)+","+direction;
-                            updateCoord(current_x+1,current_y+1);
-                            mapCoord.add(store);
-                        }
-                    }
-                    else{
-                        int result_x = current_x - (g_coordX - 1);
-                        int result_y = current_y - (g_coordY - 1);
-                        switch (direction) {
-                            case "E":
-                                if (result_y > 0) {
-                                    for (int j = 0; j < result_y; j++) {
-                                        if(!checkIfYWithinGrid(g_coordY+1)) {
-                                            String store = g_coordX+","+g_coordY+","+"N";
-                                            updateCoord(g_coordX, g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = g_coordX+","+(g_coordY+1)+","+"N";
-                                            updateCoord(g_coordX, g_coordY+1);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                } else if (result_y < 0) {
-                                    for (int j = result_y; j < 0; j++) {
-                                        if(!checkIfYWithinGrid(g_coordY-1)){
-                                            String store = g_coordX+","+g_coordY+","+"S";
-                                            updateCoord(g_coordX, g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = g_coordX+","+(g_coordY-1)+","+"S";
-                                            updateCoord(g_coordX, g_coordY-1);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                }
-                                int [] getCurCoords = {g_coordX, g_coordY};
-                                ArrayList<int[]> obstacleList = gridMap.getObstaclesList();
-                                int [] getSingleObstacle = getClosestObstacle(obstacleList, getCurCoords);
-                                int xCoordCheck = getCurCoords[0];
-                                int yCoordCheck = getCurCoords[1];
-                                int compensation = 0;
-                                if (getSingleObstacle!=null) {
-                                    for (int j = xCoordCheck; j < 19; j++) {
-                                        if (j == getSingleObstacle[0] && (yCoordCheck) == getSingleObstacle[1]) {
-                                            compensation += 1;
-                                        }
-                                    }
-                                    int counterCompensation = compensation;
-                                    if (compensation > 0) {
-                                        for (int k = 0; k < compensation; k++) {
-                                            String store = g_coordX+","+ (g_coordY-1)+","+ "S";
-                                            updateCoord(g_coordX,g_coordY-1);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                    for (int j = 0; j < result_x; j++) {
-                                        if (!checkIfXWithinGrid(g_coordX + 1)) {
-                                            String store = g_coordX+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        } else {
-                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX+1,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                    if (counterCompensation > 0) {
-                                        for (int k = 0; k < counterCompensation; k++) {
-                                            String store = g_coordX+","+(g_coordY+1)+","+"N";
-                                            updateCoord(g_coordX,g_coordY+1);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                }
-                                else{
-                                    for (int j = 0; j < result_x; j++) {
-                                        if (!checkIfXWithinGrid(g_coordX + 1)) {
-                                            String store = g_coordX+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        } else {
-                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX+1,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                }
-                                break;
-                            case "W":
-                                if (result_y > 0) {
-                                    for (int j = 0; j < result_y; j++) {
-                                        if(!checkIfYWithinGrid(g_coordY+1)) {
-                                            String store = g_coordX+","+g_coordY+","+"N";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = g_coordX+","+(g_coordY+1)+","+"N";
-                                            updateCoord(g_coordX,g_coordY+1);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                } else if (result_y < 0) {
-                                    for (int j = result_y; j < 0; j++) {
-                                        if(!checkIfYWithinGrid(g_coordY-1)){
-                                            String store = g_coordX+","+g_coordY+","+"S";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = g_coordX+","+(g_coordY-1)+","+"S";
-                                            updateCoord(g_coordX,g_coordY-1);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                }
-                                for (int j = result_x; j < 0; j++) {
-                                    if(!checkIfXWithinGrid(g_coordX-1))
-                                    {
-                                        String store = g_coordX+","+g_coordY+","+"W";
-                                        updateCoord(g_coordX,g_coordY);
-                                        mapCoord.add(store);
-                                    }
-                                    else{
-                                        String store = (g_coordX-1)+","+g_coordY+","+"W";
-                                        updateCoord(g_coordX-1,g_coordY);
-                                        mapCoord.add(store);
-                                    }
-                                }
-                                break;
-                            case "S":
-                                if (result_x > 0) {
-                                    for (int j = 0; j < result_x; j++) {
-                                        if(!checkIfXWithinGrid(g_coordX+1)) {
-                                            String store = g_coordX+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX+1,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                } else if (result_x < 0) {
-                                    for (int j = result_x; j < 0; j++) {
-                                        if(!checkIfXWithinGrid(g_coordX-1))
-                                        {
-                                            String store = g_coordX+","+g_coordY+","+"W";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = (g_coordX-1)+","+g_coordY+","+"W";
-                                            updateCoord(g_coordX-1,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                }
-                                for (int j = result_y; j < 0; j++) {
-                                    if(!checkIfYWithinGrid(g_coordY-1)) {
-                                        String store = g_coordX+","+g_coordY+","+"S";
-                                        updateCoord(g_coordX,g_coordY);
-                                        mapCoord.add(store);
-                                    }
-                                    else{
-                                        String store = g_coordX+","+(g_coordY-1)+","+"S";
-                                        updateCoord(g_coordX,g_coordY-1);
-                                        mapCoord.add(store);
-                                    }
-                                }
-                                break;
-                            case "N":
-                                if (result_x > 0) {
-                                    for (int j = 0; j < result_x; j++) {
-                                        if(!checkIfXWithinGrid(g_coordX+1)) {
-                                            String store = g_coordX+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
-                                            updateCoord(g_coordX+1,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                } else if (result_x < 0) {
-                                    for (int j = result_x; j < 0; j++) {
-                                        if(!checkIfXWithinGrid(g_coordX-1))
-                                        {
-                                            String store = g_coordX+","+g_coordY+","+"W";
-                                            updateCoord(g_coordX,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                        else{
-                                            String store = (g_coordX-1)+","+g_coordY+","+"W";
-                                            updateCoord(g_coordX-1,g_coordY);
-                                            mapCoord.add(store);
-                                        }
-                                    }
-                                }
-                                for (int j = 0; j < result_y; j++) {
-                                    if(!checkIfYWithinGrid(g_coordY+1)) {
-                                        String store = g_coordX+","+g_coordY+","+"N";
-                                        updateCoord(g_coordX,g_coordY);
-                                        mapCoord.add(store);
-                                    }
-                                    else{
-                                        String store = g_coordX+","+(g_coordY+1)+","+"N";
-                                        updateCoord(g_coordX,g_coordY+1);
-                                        mapCoord.add(store);
-                                    }
-                                }
-                                break;
-                        }
-                    }
+            if(message.contains("Direction")) {
+                String[] cmd = message.split("\\|");
+                String[] sentCoords = cmd[1].split(",");
+                String[] sentDirection = sentCoords[2].split("\\.");
+                BluetoothCommunications.getMessageReceivedTextView().append("\n");
+                String direction = "";
+                String abc = String.join("", sentDirection);
+                if (abc.contains("EAST")) {
+                    direction = "right";
                 }
-
-                int time = 0;
-                for (int i=0; i<mapCoord.size();i++){
-                    time+=200;
-                    String[] singleCoord = mapCoord.get(i).split(",");
-                    int coordx = Integer.parseInt(singleCoord[0]);
-                    int coordy = 20 - Integer.parseInt(singleCoord[1]);
-                    String dir = singleCoord[2];
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            gridMap.performAlgoCommand(coordx,coordy,dir);
-                        }
-                    },time);
+                else if (abc.contains("NORTH")) {
+                    direction = "up";
                 }
-
+                else if (abc.contains("WEST")) {
+                    direction = "left";
+                }
+                else if (abc.contains("SOUTH")) {
+                    direction = "down";
+                }
+                else{
+                    direction = "";
+                }
+//                    updateCoord();
+                //IDK how draw canvas
+//                Canvas canvas = new Canvas();
+//                gridMap.updateRobot(Integer.valueOf(sentCoords[0]) + 1, 20 - Integer.valueOf(sentCoords[1]), direction);
+                gridMap.setCurCoord(Integer.valueOf(sentCoords[1]) + 2, 19 - Integer.valueOf(sentCoords[0]), direction);
+//                gridMap.updateRobot(Integer.valueOf(sentCoords[0]), Integer.valueOf(sentCoords[1]), direction);
             }
-            //image format from RPI is "TARGET,<obID>,<ImValue>" eg TARGET,3,7
+            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET~3~7
             else if(message.contains("TARGET")) {
-                String[] cmd = message.split(",");
+                String[] cmd = message.split("~");
+                BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no. :" + cmd[1] + "Prediction: +" + cmd[2] + "\n");
                 gridMap.updateIDFromRpi(cmd[1], cmd[2]);
-                obstacleID = cmd[1];
-            }
-            else if (message.equals("ENDED")) {
-                // if wk 8 btn is checked, means running wk 8 challenge and likewise for wk 9
-                // end the corresponding timer
-                ToggleButton exploreButton = findViewById(R.id.exploreToggleBtn2);
-                ToggleButton fastestButton = findViewById(R.id.fastestToggleBtn2);
+                obstacleID = String.valueOf(Integer.valueOf(cmd[1]) - 1);
+//                    int current_x = 0;
+//                    int current_y = 0;
+//                    //This code runs in a situation in which either one x or y  is the same
+//                    //or both are the same coordinates they'll still move
+//                    if (direction.equals("N") || direction.equals("E")){
+//                        current_x = Integer.parseInt(sentCoords[0])+1;
+//                        current_y = 19 - Integer.parseInt(sentCoords[1]);
+//                    }
+//                    // When Direction is Heading South, Current X is different, it does need the X+1 attribute
+//                    else if (direction.equals("S") || direction.equals("W")){
+//                        current_x = Integer.parseInt(sentCoords[0]);
+//                        current_y = 19 - Integer.parseInt(sentCoords[1]);
+//                    }
+//
+//                    if(current_x + 1 == g_coordX){
+//                        if(!checkIfYWithinGrid(current_y+1)) {
+//                            String store = (current_x+1)+","+current_y+","+direction;
+//                            updateCoord(current_x+1, current_y);
+//                            mapCoord.add(store);
+//                        }
+//                        else{
+//                            String store = (current_x+1)+","+(current_y+1)+","+direction;
+//                            updateCoord(current_x+1, current_y+1);
+//                            mapCoord.add(store);
+//                        }
+//                    }
+//                    else if (current_y+1 == g_coordY){
+//                        if(!checkIfXWithinGrid(current_x+1)){
+//                            String store = current_x+","+(current_y+1)+","+direction;
+//                            updateCoord(current_x, current_y+1);
+//                            mapCoord.add(store);
+//                        }
+//                        else{
+//                            String store = (current_x+1) +","+(current_y+1)+","+direction;
+//                            updateCoord(current_x+1,current_y+1);
+//                            mapCoord.add(store);
+//                        }
+//                    }
+//                    else{
+//                        int result_x = current_x - (g_coordX - 1);
+//                        int result_y = current_y - (g_coordY - 1);
+//                        switch (direction) {
+//                            case "E":
+//                                if (result_y > 0) {
+//                                    for (int j = 0; j < result_y; j++) {
+//                                        if(!checkIfYWithinGrid(g_coordY+1)) {
+//                                            String store = g_coordX+","+g_coordY+","+"N";
+//                                            updateCoord(g_coordX, g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = g_coordX+","+(g_coordY+1)+","+"N";
+//                                            updateCoord(g_coordX, g_coordY+1);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                } else if (result_y < 0) {
+//                                    for (int j = result_y; j < 0; j++) {
+//                                        if(!checkIfYWithinGrid(g_coordY-1)){
+//                                            String store = g_coordX+","+g_coordY+","+"S";
+//                                            updateCoord(g_coordX, g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = g_coordX+","+(g_coordY-1)+","+"S";
+//                                            updateCoord(g_coordX, g_coordY-1);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                }
+//                                int [] getCurCoords = {g_coordX, g_coordY};
+//                                ArrayList<int[]> obstacleList = gridMap.getObstaclesList();
+//                                int [] getSingleObstacle = getClosestObstacle(obstacleList, getCurCoords);
+//                                int xCoordCheck = getCurCoords[0];
+//                                int yCoordCheck = getCurCoords[1];
+//                                int compensation = 0;
+//                                if (getSingleObstacle!=null) {
+//                                    for (int j = xCoordCheck; j < 19; j++) {
+//                                        if (j == getSingleObstacle[0] && (yCoordCheck) == getSingleObstacle[1]) {
+//                                            compensation += 1;
+//                                        }
+//                                    }
+//                                    int counterCompensation = compensation;
+//                                    if (compensation > 0) {
+//                                        for (int k = 0; k < compensation; k++) {
+//                                            String store = g_coordX+","+ (g_coordY-1)+","+ "S";
+//                                            updateCoord(g_coordX,g_coordY-1);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                    for (int j = 0; j < result_x; j++) {
+//                                        if (!checkIfXWithinGrid(g_coordX + 1)) {
+//                                            String store = g_coordX+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        } else {
+//                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX+1,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                    if (counterCompensation > 0) {
+//                                        for (int k = 0; k < counterCompensation; k++) {
+//                                            String store = g_coordX+","+(g_coordY+1)+","+"N";
+//                                            updateCoord(g_coordX,g_coordY+1);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                }
+//                                else{
+//                                    for (int j = 0; j < result_x; j++) {
+//                                        if (!checkIfXWithinGrid(g_coordX + 1)) {
+//                                            String store = g_coordX+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        } else {
+//                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX+1,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                }
+//                                break;
+//                            case "W":
+//                                if (result_y > 0) {
+//                                    for (int j = 0; j < result_y; j++) {
+//                                        if(!checkIfYWithinGrid(g_coordY+1)) {
+//                                            String store = g_coordX+","+g_coordY+","+"N";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = g_coordX+","+(g_coordY+1)+","+"N";
+//                                            updateCoord(g_coordX,g_coordY+1);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                } else if (result_y < 0) {
+//                                    for (int j = result_y; j < 0; j++) {
+//                                        if(!checkIfYWithinGrid(g_coordY-1)){
+//                                            String store = g_coordX+","+g_coordY+","+"S";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = g_coordX+","+(g_coordY-1)+","+"S";
+//                                            updateCoord(g_coordX,g_coordY-1);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                }
+//                                for (int j = result_x; j < 0; j++) {
+//                                    if(!checkIfXWithinGrid(g_coordX-1))
+//                                    {
+//                                        String store = g_coordX+","+g_coordY+","+"W";
+//                                        updateCoord(g_coordX,g_coordY);
+//                                        mapCoord.add(store);
+//                                    }
+//                                    else{
+//                                        String store = (g_coordX-1)+","+g_coordY+","+"W";
+//                                        updateCoord(g_coordX-1,g_coordY);
+//                                        mapCoord.add(store);
+//                                    }
+//                                }
+//                                break;
+//                            case "S":
+//                                if (result_x > 0) {
+//                                    for (int j = 0; j < result_x; j++) {
+//                                        if(!checkIfXWithinGrid(g_coordX+1)) {
+//                                            String store = g_coordX+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX+1,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                } else if (result_x < 0) {
+//                                    for (int j = result_x; j < 0; j++) {
+//                                        if(!checkIfXWithinGrid(g_coordX-1))
+//                                        {
+//                                            String store = g_coordX+","+g_coordY+","+"W";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = (g_coordX-1)+","+g_coordY+","+"W";
+//                                            updateCoord(g_coordX-1,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                }
+//                                for (int j = result_y; j < 0; j++) {
+//                                    if(!checkIfYWithinGrid(g_coordY-1)) {
+//                                        String store = g_coordX+","+g_coordY+","+"S";
+//                                        updateCoord(g_coordX,g_coordY);
+//                                        mapCoord.add(store);
+//                                    }
+//                                    else{
+//                                        String store = g_coordX+","+(g_coordY-1)+","+"S";
+//                                        updateCoord(g_coordX,g_coordY-1);
+//                                        mapCoord.add(store);
+//                                    }
+//                                }
+//                                break;
+//                            case "N":
+//                                if (result_x > 0) {
+//                                    for (int j = 0; j < result_x; j++) {
+//                                        if(!checkIfXWithinGrid(g_coordX+1)) {
+//                                            String store = g_coordX+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = (g_coordX+1)+","+g_coordY+","+"E";
+//                                            updateCoord(g_coordX+1,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                } else if (result_x < 0) {
+//                                    for (int j = result_x; j < 0; j++) {
+//                                        if(!checkIfXWithinGrid(g_coordX-1))
+//                                        {
+//                                            String store = g_coordX+","+g_coordY+","+"W";
+//                                            updateCoord(g_coordX,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                        else{
+//                                            String store = (g_coordX-1)+","+g_coordY+","+"W";
+//                                            updateCoord(g_coordX-1,g_coordY);
+//                                            mapCoord.add(store);
+//                                        }
+//                                    }
+//                                }
+//                                for (int j = 0; j < result_y; j++) {
+//                                    if(!checkIfYWithinGrid(g_coordY+1)) {
+//                                        String store = g_coordX+","+g_coordY+","+"N";
+//                                        updateCoord(g_coordX,g_coordY);
+//                                        mapCoord.add(store);
+//                                    }
+//                                    else{
+//                                        String store = g_coordX+","+(g_coordY+1)+","+"N";
+//                                        updateCoord(g_coordX,g_coordY+1);
+//                                        mapCoord.add(store);
+//                                    }
+//                                }
+//                                break;
+//                        }
+//                    }
 
-                if (exploreButton.isChecked()) {
-                    showLog("explorebutton is checked");
-                    stopTimerFlag = true;
-                    exploreButton.setChecked(false);
-                    robotStatusTextView.setText("Auto Movement/ImageRecog Stopped");
-                    ControlFragment.timerHandler.removeCallbacks(ControlFragment.timerRunnableExplore);
-                } else if (fastestButton.isChecked()) {
-                    showLog("fastestbutton is checked");
-                    stopTimerFlag = true;
-                    fastestButton.setChecked(false);
-                    robotStatusTextView.setText("Week 9 Stopped");
-                    ControlFragment.timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
-                }
+//                int time = 0;
+//                for (int i=0; i<mapCoord.size();i++){
+//                    time+=200;
+//                    String[] singleCoord = mapCoord.get(i).split(",");
+//                    int coordx = Integer.parseInt(singleCoord[0]);
+//                    int coordy = 20 - Integer.parseInt(singleCoord[1]);
+//                    String dir = singleCoord[2];
+//                    handler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            gridMap.performAlgoCommand(coordx,coordy,dir);
+//                        }
+//                    },time);
+//                }
+
+//            }
+            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET~3~7
+//            else if(message.contains("TARGET")) {
+//                String[] cmd = message.split("~");
+//                gridMap.updateIDFromRpi(cmd[1], cmd[2]);
+//                obstacleID = String.valueOf(Integer.valueOf(cmd[1]) - 1);
+//            }
+//            else if (message.equals("ENDED")) {
+//                // if wk 8 btn is checked, means running wk 8 challenge and likewise for wk 9
+//                // end the corresponding timer
+//                ToggleButton exploreButton = findViewById(R.id.exploreToggleBtn2);
+//                ToggleButton fastestButton = findViewById(R.id.fastestToggleBtn2);
+//
+//                if (exploreButton.isChecked()) {
+//                    showLog("explorebutton is checked");
+//                    stopTimerFlag = true;
+//                    exploreButton.setChecked(false);
+//                    robotStatusTextView.setText("Auto Movement/ImageRecog Stopped");
+//                    ControlFragment.timerHandler.removeCallbacks(ControlFragment.timerRunnableExplore);
+//                } else if (fastestButton.isChecked()) {
+//                    showLog("fastestbutton is checked");
+//                    stopTimerFlag = true;
+//                    fastestButton.setChecked(false);
+//                    robotStatusTextView.setText("Week 9 Stopped");
+//                    ControlFragment.timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
+//                }
             }
         }
     };
