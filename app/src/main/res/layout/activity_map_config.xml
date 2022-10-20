@@ -73,8 +73,9 @@
                     android:layout_marginTop="15dp"
                     android:paddingStart="5dp"
                     android:text="Reset Map"
-                    android:background="@drawable/border_black_state"/>
-<!--                android:drawableStart="@mipmap/fat_dragon"-->
+                    android:background="@drawable/border_black_state"
+                    app:backgroundTint="@color/darkRed"
+                    />
 
                 <Button
                     android:id="@+id/saveBtn"
@@ -85,7 +86,8 @@
                     android:paddingEnd="7dp"
                     android:text="Save Map"
                     android:background="@drawable/border_black_state"
-                    android:drawableStart="@mipmap/stormfly"/>
+                    android:drawableStart="@mipmap/stormfly"
+                    app:backgroundTint="@color/darkRed"/>
 
 
                 <Button
@@ -96,7 +98,8 @@
                     android:layout_marginTop="15dp"
                     android:paddingStart="5dp"
                     android:text="Load Map"
-                    android:background="@drawable/border_black_state"/>
+                    android:background="@drawable/border_black_state"
+                    app:backgroundTint="@color/darkRed"/>
 
 <!--                android:drawableLeft="@mipmap/two_head_dragon"-->
             </LinearLayout>
@@ -165,9 +168,8 @@
                 android:layout_marginTop="13dp"
                 android:paddingEnd="10dp"
                 android:text="Preload Defaults"
-                android:background="@drawable/border_black_state"/>
-            <!--
-                         android:drawableStart="@mipmap/l7"-->
+                android:background="@drawable/border_black_state"
+                app:backgroundTint="@color/darkRed"/>
 
             <ImageView
                 android:layout_width="187dp"

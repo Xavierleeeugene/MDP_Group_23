@@ -1,5 +1,7 @@
 package com.example.mdp_grp_23;
 
+import static com.example.mdp_grp_23.MainActivity.refreshMessageReceivedNS;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
@@ -18,6 +20,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 public class ControlFragment extends Fragment {
@@ -224,7 +227,8 @@ public class ControlFragment extends Fragment {
                 else if (fastestToggleBtn.getText().equals("STOP")) {
                     showToast("Fastest car timer start!");
                     try {
-//                        MainActivity.printMessage("STM|Start");
+//                        MainActivity.printMessage("STM|Start")
+                        refreshMessageReceivedNS("START\n");
                         MainActivity.printMessage("{\"forward_to\":\"STM\",\"message\":\"Start\"}");
                     } catch (Exception e) {
                         showLog(e.getMessage());
