@@ -23,16 +23,17 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
             android:background="#0000ffff"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:scaleType="fitXY" />
-            <!--        android:src="@mipmap/www"-->
+                android:scaleType="fitXY"
+                android:src="@drawable/mario_face"/>
+
 
 
             <TextView
@@ -44,9 +45,9 @@
                 android:gravity="center"
                 android:minHeight="?actionBarSize"
                 android:padding="@dimen/appbar_padding"
-                android:text="@string/app_name"
+                android:text="MDP Group 23"
                 android:textColor="@color/colorBlack"
-                android:textSize="23sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -54,11 +55,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="190dp"
-                android:foregroundGravity="center"
-                android:scaleType="fitXY"
                 android:adjustViewBounds="true"
+                android:background="@color/white"
                 android:foreground="@drawable/bluetooth_icon"
-                android:background="@color/white"/>
+                android:foregroundGravity="center"
+                android:scaleType="fitXY" />
 
         </androidx.appcompat.widget.Toolbar>
 

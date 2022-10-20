@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         String[] strArr = message.split("-",2);
 
         if (BluetoothConnectionService.BluetoothConnectionStatus == true){
-            byte[] bytes = strArr[1].getBytes(Charset.defaultCharset());
+                byte[] bytes = strArr[1].getBytes(Charset.defaultCharset());
             BluetoothConnectionService.write(bytes);
         }
         refreshMessageReceivedNS("Untranslated Coordinates: " + strArr[0] + "\n");
